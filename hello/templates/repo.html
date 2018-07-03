@@ -1,0 +1,20 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>Data Doctor</h1>
+    <p>
+      <span style="color:white">Repo to Search: <br> </span>
+      {% csrf_token %}
+      {{ repo_url }}
+    </p>
+    <a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
+    <a type="button" class="btn btn-lg btn-primary" href="/TOC"><span class="glyphicon glyphicon-download"></span> Table of Contents</a>
+    
+  </div>
+</div>
+
+{% endblock %}

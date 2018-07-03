@@ -1,0 +1,58 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+
+{% block content %}
+
+<style type="text/css">
+    .TOC {
+        background: #2B3856;
+        color: white;
+        padding-bottom: 80px
+    }
+    .TOC p {
+        color: #d9ccee;
+        max-width: 75%;
+        margin: 1em auto 2em
+    }
+    .TOC .btn-primary {
+        background: #161314;
+        border-color: #161314;
+        float: right;
+    }
+    .TOC .btn-primary:hover {
+        background: #524F50
+    }
+    .TOC {
+        background: #2B3856;
+        color: white;
+        padding-bottom: 80px
+    }
+    .TOC p {
+        color: #d9ccee;
+        max-width: 90%;
+        margin: 1em auto 2em
+    }
+    .TOC a:link {
+        color: white;
+    }
+    .TOC a:visited {
+        color: white;
+    }
+    .TOC a:hover {
+        color: #161314;
+    }
+ </style>
+<div class="TOC">
+  <div class="container">
+  	<br>
+  	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
+    <h2>Table of Contents</h2>
+    <h4><br>Execute External Script:</h4>
+    <p>{{ x }}</p>
+    <p>{{ y }}</p>
+    <h4><br>Example:</h4>
+    {% for nm in DAG_list %}
+        <div class="col-md-1"><a href="{% url 'DAG' nm %}">DAG {{nm}}</a></div>
+    {% endfor %}
+</div>
+{% endblock %}
