@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^db', hello.views.db, name='db'),
     path('TOC/DAG/<str:name>/', hello.views.DAG, name='DAG'),
     url(r'^info', hello.views.info, name='info'),
-    url(r'^repo/', hello.views.repo, name='repo'),
-    path('TOC/', hello.views.TOC, name='TOC'),
+    url(r'^TOC/?$', hello.views.TOC, name='TOC'),
+    path('repo/', hello.views.repo, name='repo'),
     path('admin/', admin.site.urls),
 ]

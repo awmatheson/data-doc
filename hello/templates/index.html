@@ -16,12 +16,11 @@
     <!--
     <a type="button" class="btn btn-lg btn-default" href="/"><span class="glyphicon glyphicon-search"></span> Some Search Function</a>
     -->
-    <form action="/repo/" method="post">
+    <form type="get" action="/TOC/">
       <p><span style="color:white" class="glyphicon glyphicon-search"></span>
-        <span style="color:white">Enter Repo to Search: <br></span>
-        <span style="color:black"><input id="repo_url" type="text" name="repo_url" value="{{ Repo.repo_url }}">
-          {% csrf_token %}
-        <input type="submit" value="OK"></span>
+        <span style="color:white">Enter Repo to Search:<br></span>
+        <span style="color:black"><input id="repo_url" type="text" name="repo_id" placeholder="Search...">
+        <button id="search_submit" type="submit">Submit</button>
       </p>
     </form>
     <!--<a type="button" class="btn btn-lg btn-primary" href="/TOC"><span class="glyphicon glyphicon-download"></span> Table of Contents</a>-->

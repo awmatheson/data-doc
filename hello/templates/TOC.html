@@ -47,12 +47,15 @@
   	<br>
   	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
     <h2>Table of Contents</h2>
-    <h4><br>Execute External Script:</h4>
+    <h4><br>Execute External Script from: {{ repo_id }}</h4>
+
     <p>{{ x }}</p>
     <p>{{ y }}</p>
+
     <h4><br>Example:</h4>
     {% for nm in DAG_list %}
-        <div class="col-md-1"><a href="{% url 'DAG' nm %}">DAG {{nm}}</a></div>
+        <div class="col-md-1">DAG {{nm}}</a></div>
     {% endfor %}
+
 </div>
 {% endblock %}

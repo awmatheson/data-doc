@@ -6,8 +6,7 @@ from .models import Greeting
 from .models import Repo
 from .forms import RepoForm
 
-from scripts.customcode import test
-from scripts.customcode import test2
+from scripts.customcode import *
 
 # Create your views here.
 def index(request):
@@ -33,27 +32,31 @@ def info(request):
 	return render(request, 'info.html')
 
 def repo(request):
-	if request.method == 'POST':
-		form = RepoForm(request.POST)
-		if form.is_valid():
-			repo_url = form.save()
-			#repo_url = Repo.__str__
-			#repo_url.save()
-			#repo_url = Repo.repo_url
-			return render(request,'repo.html', {'repo_url': repo_url})
-		else:
-			return HttpResponseRedirect('/')
-	else:
-		form = RepoForm()
+	if request.method == 'GET':
+		repo_id = request.GET.get('repo_id', None)
+	# 	form = RepoForm(request.POST)
+	# 	print(request)
+	# 	if form.is_valid():
 
-	#x = test()
-	return render(request, 'repo.html', {'repo_url': repo_url})
+	# 		repo_url = form.save()
+	# 		return render(request,'repo.html', {'repo_id': repo_id})
+		
+	# 	else:
+	# 		return HttpResponseRedirect('/')
+	# else:
+	# 	form = RepoForm()
+
+	return render(request, 'TOC.html', {'repo_id': repo_id})
 
 def TOC(request):
-	#r = Repo.repo_url
+	if request.method == 'GET':
+		repo_id = request.GET.get('repo_id', None)
+
+	DAG_list = get_repo()
+
 	x = test('[URL]')
 	y = test2()
-	DAG_list = ['one','two','three','four']
-	return render(request, 'TOC.html', {'y': y, 'x': x, 'DAG_list': DAG_list})
+	#DAG_list = ['one','two','three','four']
+	return render(request, 'TOC.html', {'repo_id': repo_id, 'y': y, 'x': x, 'DAG_list': DAG_list})
 
 
