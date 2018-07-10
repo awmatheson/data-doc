@@ -1,0 +1,81 @@
+.jumbotron {
+    background: #2B3856;
+    color: white;
+    padding-bottom: 80px
+}
+.jumbotron .btn-primary {
+    background: #161314;
+    border-color: #161314
+}
+.jumbotron .btn-primary:hover {
+    background: #524F50
+}
+.jumbotron p {
+    color: #d9ccee;
+    max-width: 75%;
+    margin: 1em auto 2em
+}
+.navbar+.jumbotron {
+    margin-top: -20px
+}
+.jumbotron .lang-logo {
+    display: block;
+    background: #b01302;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border: 2px solid white
+}
+.jumbotron .lang-logo img {
+    max-width: 100%
+}
+.DAG-H {
+    background: #2B3856;
+    color: white;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+.DAG-H h4 {
+    color: #d9ccee;
+    max-width: 75%;
+    margin: 1em auto 2em
+}
+.DAG-H .btn-primary {
+    background: #161314;
+    border-color: #161314;
+    float: right;
+}
+.DAG-H .btn-primary:hover {
+    background: #524F50
+}
+.DAG-H a:link {
+    color: white;
+}
+.DAG-H a:visited {
+    color: white;
+}
+.DAG-H a:hover {
+    color: #161314;
+}
+.DAG {
+    background: white;
+    color: #161314;
+    padding-bottom: 80px
+}
+.DAG p {
+    color: #161314;
+    max-width: 90%;
+    margin: 1em auto 2em
+}
+.DAG a:link {
+    color: #161314;
+}
+.DAG a:visited {
+    color: #161314;
+}
+.DAG a:hover {
+    color: #2B3856;
+}
