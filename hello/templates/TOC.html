@@ -4,58 +4,74 @@
 {% block content %}
 
 <style type="text/css">
-    .TOC {
+    .TOC-H {
         background: #2B3856;
         color: white;
-        padding-bottom: 80px
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px
     }
-    .TOC p {
+    .TOC-H h4 {
         color: #d9ccee;
         max-width: 75%;
         margin: 1em auto 2em
     }
-    .TOC .btn-primary {
+    .TOC-H .btn-primary {
         background: #161314;
         border-color: #161314;
-        float: right;
     }
-    .TOC .btn-primary:hover {
+    .TOC-H .btn-primary:hover {
         background: #524F50
     }
-    .TOC {
-        background: #2B3856;
+    .TOC-H a:link {
         color: white;
+    }
+    .TOC-H a:visited {
+        color: white;
+    }
+    .TOC-H a:hover {
+        color: #161314;
+    }
+    .TOC {
+        background: white;
+        color: #161314;
         padding-bottom: 80px
     }
     .TOC p {
-        color: #d9ccee;
+        color: #161314;
         max-width: 90%;
         margin: 1em auto 2em
     }
     .TOC a:link {
-        color: white;
-    }
-    .TOC a:visited {
-        color: white;
-    }
-    .TOC a:hover {
         color: #161314;
     }
+    .TOC a:visited {
+        color: #161314;
+    }
+    .TOC a:hover {
+        color: #2B3856;
+    }
  </style>
-<div class="TOC">
-  <div class="container">
-  	<br>
-  	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
-    <h2>Table of Contents</h2>
-    <h4><br>Execute External Script from: {{ repo_id }}</h4>
 
-    <p>{{ x }}</p>
-    <p>{{ y }}</p>
+<div class="TOC-H">
+    <div class="container">
+        <h2 align="center">Table of Contents</h2>
 
-    <h4><br>Example:</h4>
-    {% for nm in DAG_list %}
-        <div class="col-md-1">DAG {{nm}}</a></div>
-    {% endfor %}
-
+        <!-- Link to Github Repository -->
+        <h4 align="center"><br>Github Repository URL: <a href="http://{{ repo_id }}" target="_blank">{{ repo_id }}</a></h4>
+        <a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
+    </div>
 </div>
+
+<div class="TOC" align="center">
+    
+    <!-- Example List of DAGS -->
+    <h4><br>The Github Repository contains the following DAGs:</h4>
+    {% for nm in DAG_list %}
+        <div class="row" align="center">
+            <a href="{% url 'DAG' repo_id nm %}">DAG: {{nm}}</a>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

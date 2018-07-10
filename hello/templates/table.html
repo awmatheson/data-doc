@@ -2,79 +2,86 @@
 {% load staticfiles %}
 
 {% block content %}
+
 <style type="text/css">
-    .DAG-H {
+    .TBL-H {
         background: #2B3856;
         color: white;
         text-align: left;
         padding-top: 10px;
         padding-bottom: 10px
     }
-    .DAG-H h4 {
+    .TBL-H h4 {
         color: #d9ccee;
         max-width: 75%;
         margin: 1em auto 2em
     }
-    .DAG-H .btn-primary {
+    .TBL-H .btn-primary {
         background: #161314;
         border-color: #161314;
         float: right;
     }
-    .DAG-H .btn-primary:hover {
+    .TBL-H .btn-primary:hover {
         background: #524F50
     }
-    .DAG-H a:link {
+    .TBL-H a:link {
         color: white;
     }
-    .DAG-H a:visited {
+    .TBL-H a:visited {
         color: white;
     }
-    .DAG-H a:hover {
+    .TBL-H a:hover {
         color: #161314;
     }
-    .DAG {
+    .TBL {
         background: white;
         color: #161314;
         padding-bottom: 80px
     }
-    .DAG p {
+    .TBL p {
         color: #161314;
         max-width: 90%;
         margin: 1em auto 2em
     }
-    .DAG a:link {
+    .TBL a:link {
         color: #161314;
     }
-    .DAG a:visited {
+    .TBL a:visited {
         color: #161314;
     }
-    .DAG a:hover {
+    .TBL a:hover {
         color: #2B3856;
     }
  </style>
 
-<div class="DAG-H">
+<div class="TBL-H">
   <div class="container">
   	<br>
   	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
-    <h2>DAG:  "{{ dag_name }}"</h2>
+    <h2>Table:  "{{ table_name }}"</h2>
     <h4 align="center"><br>From Github Repo: <a href="http://{{ repo_id }}" target="_blank">{{ repo_id }}</a></h4>
 
   </div>
 </div>
 
-<div class="DAG" align="center">
-
-    <!-- List of SQL "Jobs" -->
-    <h4><br>DAG "{{ dag_name }}" has the following tasks:</h4>
-    {% for nm in SQL_list %}
-    	<div class="row" align="center">
-    		<a href="{% url 'task' repo_id dag_name nm %}">{{nm}}</a>
+<div class="TBL">
+    <!-- List/Descriptions of columns in table -->
+    <h4 align="center"><br>Table "{{ table_name }}" has the following columns:</h4>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-xs-3">Column Number</div>
+    		<div class="col-xs-3">Column Name</div>
+    		<div class="col-xs-3">Data Type</div>
+    		<div class="col-xs-3">Constraints</div>
     	</div>
-    {% endfor %}
-    
-    <!-- Placeholder for links to tables -->
-    <h4><br>and touches the following tables:</h4>
-</div>
+    </div>
+    <h4 align="center"><br>and touches the following tables:</h4>
+    <div class="container" align="center">
+	    {% for nm in TBL_connection_list %}
+		    <div class="row">
+		    <a href="{% url 'table' repo_id dag_name job_name nm %}">{{nm}}</a>
+			</div>
+		{% endfor %}
+	</div>
 
 {% endblock %}

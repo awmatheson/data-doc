@@ -2,79 +2,84 @@
 {% load staticfiles %}
 
 {% block content %}
+
 <style type="text/css">
-    .DAG-H {
+    .TSK-H {
         background: #2B3856;
         color: white;
         text-align: left;
         padding-top: 10px;
         padding-bottom: 10px
     }
-    .DAG-H h4 {
+    .TSK-H h4 {
         color: #d9ccee;
         max-width: 75%;
         margin: 1em auto 2em
     }
-    .DAG-H .btn-primary {
+    .TSK-H .btn-primary {
         background: #161314;
         border-color: #161314;
         float: right;
     }
-    .DAG-H .btn-primary:hover {
+    .TSK-H .btn-primary:hover {
         background: #524F50
     }
-    .DAG-H a:link {
+    .TSK-H a:link {
         color: white;
     }
-    .DAG-H a:visited {
+    .TSK-H a:visited {
         color: white;
     }
-    .DAG-H a:hover {
+    .TSK-H a:hover {
         color: #161314;
     }
-    .DAG {
+    .TSK {
         background: white;
         color: #161314;
         padding-bottom: 80px
     }
-    .DAG p {
+    .TSK p {
         color: #161314;
         max-width: 90%;
         margin: 1em auto 2em
     }
-    .DAG a:link {
+    .TSK a:link {
         color: #161314;
     }
-    .DAG a:visited {
+    .TSK a:visited {
         color: #161314;
     }
-    .DAG a:hover {
+    .TSK a:hover {
         color: #2B3856;
     }
  </style>
 
-<div class="DAG-H">
+<div class="TSK-H">
   <div class="container">
   	<br>
   	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
-    <h2>DAG:  "{{ dag_name }}"</h2>
+    <h2>Task:  "{{ job_name }}"</h2>
     <h4 align="center"><br>From Github Repo: <a href="http://{{ repo_id }}" target="_blank">{{ repo_id }}</a></h4>
 
   </div>
 </div>
 
-<div class="DAG" align="center">
+<div class="TSK" align="center">
 
-    <!-- List of SQL "Jobs" -->
-    <h4><br>DAG "{{ dag_name }}" has the following tasks:</h4>
-    {% for nm in SQL_list %}
+    <!-- Link to Task Script -->
+    <h4><br>Task "{{ job_name }}" runs the following script:</h4>
     	<div class="row" align="center">
-    		<a href="{% url 'task' repo_id dag_name nm %}">{{nm}}</a>
+    		<a href="{% url 'task' repo_id dag_name job_name %}">(External) Link to {{job_name}}</a>
     	</div>
-    {% endfor %}
-    
-    <!-- Placeholder for links to tables -->
+
+    <!-- Link to Tables -->
     <h4><br>and touches the following tables:</h4>
+    {% for nm in TBL_list %}
+        <div class="row" align="center">
+            <a href="{% url 'table' repo_id dag_name job_name nm %}">{{nm}}</a>
+        </div>
+    {% endfor %}
+
 </div>
 
 {% endblock %}
