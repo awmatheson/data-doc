@@ -10,13 +10,17 @@
     <p>Sample text.</p>
 
     <!-- Search Function for Github Repo -->
-    <form type="get" action="/TOC/">
+<!--     <form type="get" action="/TOC/">
       <p><span style="color:white" class="glyphicon glyphicon-search"></span>
         <span style="color:white">Enter Repo to Search:<br></span>
         <span style="color:black"><input id="repo_url" type="text" name="repo_id" placeholder="Search...">
         <button id="search_submit" type="submit">Submit</button>
       </p>
-    </form>
+    </form> -->
+
+
+    <h3>Github Repository: <a href="https://{{user.profile.repository}}" target="_blank">{{user.profile.repository}}</a></h3>
+    <a type="button"  class="btn btn-lg btn-primary" href="{% url 'TOC' user.profile.repository %}">Table of Contents</a>
 
   </div>
 </div>

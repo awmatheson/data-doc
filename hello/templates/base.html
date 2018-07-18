@@ -10,35 +10,30 @@
 <body>
 <nav class="navbar navbar-default navbar-static-top navbar-inverse">
   <div class="container">
-    <ul class="nav navbar-nav">
+    <div class="nav navbar-nav">
       <li class="active">
         <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
       </li>
-      <!--
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Heading <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="/">List 1</a></li>
-            <li><a href="/">List 2</a></li>
-            <li><a href="/">List 3</a></li>
-            <li class="divider"></li>
-            <li><a href="/">List 4</a></li>
-          </ul>
-      </li>
-      -->
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="navbar-right">
+      <li>
         <a href="/info"><span class="glyphicon glyphicon-book"></span> How it works</a>
       </li>
-    </ul>
-    <!--
+      {% if user.username %}
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{user.username}} <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="/userProfile/{{user.username}}">Profile</a></li>
+          <li><a href="/password">Change Password</a></li>
+          <li class="divider"></li>
+          <li><a href="/accounts/logout">Logout</a></li>
+        </ul>
+      </li>
+    </div>
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-right">
-        <a href="/DAGS"><span class="glyphicon glyphicon-chevron-right"></span> DAGS</a>
+        <a href="/accounts/logout">Logout</a>
       </li>
     </ul>
-    -->
+    {% endif %}
   </div>
 </nav>
 
