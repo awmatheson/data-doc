@@ -15,10 +15,11 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.hashers import check_password
 
-from .forms import SignUpForm
+from .forms import *
+from .models import *
 from .tokens import account_activation_token
-
 from scripts.customcode import *
 
 # Create your views here.
@@ -49,7 +50,9 @@ def signup(request):
             return HttpResponse('Please confirm your email address to complete the registration')
     else:
     	form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+
+    args = {'form':form}
+    return render(request, 'signup.html', args)
 
 
 # Link from email to activate account
@@ -92,30 +95,69 @@ def change_password(request):
 			messages.error(request, 'Please correct the error below.')
 	else:
 		form = PasswordChangeForm(request.user)
-	return render(request, 'change_password.html', {'form': form})
+	args = {'form':form}
+	return render(request, 'change_password.html', args)
 
 # Shows user profile
 @login_required
-def userProfile(request, username):
+def view_profile(request, username):
 
 	return render(request, 'userProfile.html')
 
 # Changes to user profile
-# @login_required
-# def update_user_profile(request, username):
-# 	if request.method == 'POST':
-# 		form = SignUpForm(request.POST)
-# 		if form.is_valid():
-# 			user = form.save()
-# 			user.save()
-# 	else:
-# 		form = SignUpForm()
-# 	return render(request, 'changeProfile.html', {'form': form})
+@login_required
+def edit_profile(request, username):
+	x = ''
+	if request.method == 'POST':
+		success = ConfirmPasswordForm(request.POST)
+		form = EditProfileForm(request.POST, instance=request.user)
+
+		if form.is_valid():
+			
+			#if success:
+
+			user = form.save()
+			user.refresh_from_db()
+			user.profile.repository = form.cleaned_data.get('repository')
+			user.profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
+			user.save()
+			return redirect('view_profile', {'username': user.username})
+
+			#else:
+			#	x = 'password does not match'
+	else:
+		current_profile = Profile.objects.get(pk=1)
+		form = EditProfileForm(instance=current_profile)
+		password_confirm_form = ConfirmPasswordForm()
+	args = {'x':x,'form':form, 'password_confirm_form':password_confirm_form}
+	return render(request, 'changeProfile.html', args)
+
+
+@login_required
+def add_database(request):
+
+	if request.method == 'POST':
+		a = Database()
+		form = DatabaseForm(request.POST, instance=a)
+		if form.is_valid():
+			database = form.save()
+			database.save()
+			return redirect('index')
+
+	else:
+		#current = Database.objects.get(pk=1)
+		form = DatabaseForm()
+		#password_confirm_form = ConfirmPasswordForm()
+
+	args = {'form':form, }
+	return render(request, 'add_database.html', args)
+
+
+
 
 # Index/Home Page (shows Search Function)
 @login_required
 def index(request):
-
 	return render(request, 'index.html')
 
 
@@ -135,8 +177,8 @@ def TOC(request, repo_id):
 
 	# Use variable repo_id to find DAGS in repo
 	DAG_list = get_repo()
-
-	return render(request, 'TOC.html', {'repo_id': repo_id, 'DAG_list': DAG_list})
+	args = {'repo_id': repo_id, 'DAG_list': DAG_list}
+	return render(request, 'TOC.html', args)
 
 
 # One page per DAG included in repo, shows list of tasks/jobs in DAG
@@ -145,8 +187,11 @@ def DAG(request, repo_id, dag_name):
 
 	# Use variables repo_id and dag_name to find SQL jobs
 	SQL_list = get_DAG()
-
-	return render(request, 'DAGS.html', {'repo_id': repo_id, 'dag_name': dag_name, 'SQL_list': SQL_list})
+	args = {'repo_id': repo_id,
+			'dag_name': dag_name,
+			'SQL_list': SQL_list
+	}
+	return render(request, 'DAGS.html', args)
 
 
 # One page per job/task, shows tables used within task and link to task file
@@ -155,8 +200,12 @@ def task(request, repo_id, dag_name, job_name):
 
 	# Use variables repo_id, dag_name and job_name to find tables
 	TBL_list = get_job()
-
-	return render(request, 'task.html', {'repo_id': repo_id, 'dag_name': dag_name, 'job_name': job_name, 'TBL_list': TBL_list})
+	args = {'repo_id': repo_id,
+			'dag_name': dag_name,
+			'job_name': job_name,
+			'TBL_list': TBL_list
+	}
+	return render(request, 'task.html', args)
 
 
 # One page per table, shows columns and data types
@@ -164,5 +213,10 @@ def task(request, repo_id, dag_name, job_name):
 def table(request, repo_id, dag_name, job_name, table_name):
 
 	TBL_connection_list = get_tables()
-
-	return render(request, 'table.html', {'repo_id': repo_id, 'dag_name': dag_name, 'job_name': job_name, 'table_name': table_name, 'TBL_connection_list': TBL_connection_list})
+	args = {'repo_id': repo_id,
+			'dag_name': dag_name,
+			'job_name': job_name,
+			'table_name': table_name,
+			'TBL_connection_list': TBL_connection_list
+	}
+	return render(request, 'table.html', args)

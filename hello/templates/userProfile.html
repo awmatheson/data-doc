@@ -10,6 +10,6 @@
   <h4><b>Github Repository:</b> {{user.profile.repository}}</h4>
   <h4><b>DAG Directory Name:</b> {{user.profile.dag_directory_name}}</h4>
   <br>
-  <a type="button"  class="btn btn-med btn-primary" >Change User Profile</a>
+  <a type="button"  class="btn btn-med btn-primary" href="{% url 'edit_profile' user.username %}">Change User Profile</a>
 </div>
 {% endblock %}

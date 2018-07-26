@@ -1,15 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 
-from .models import Profile
+from .models import Profile, Database
 
 class SignUpForm(UserCreationForm):
 	first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
 	last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-	email = forms.EmailField(max_length=254, help_text='Required.')
-	repository = forms.CharField(max_length=300, help_text='Required. Enter Github Repository URL.')
-	dag_directory_name = forms.CharField(max_length=50, help_text='Required. Enter Dag Directory Name.')
+	email = forms.EmailField(max_length=254, required=True, help_text='Required.')
+	repository = forms.CharField(max_length=300, required=True, help_text='Required. Enter Github Repository URL.')
+	dag_directory_name = forms.CharField(max_length=50, required=True, help_text='Required. Enter Dag Directory Name.')
 
 	class Meta:
 		model = User
@@ -24,14 +25,63 @@ class SignUpForm(UserCreationForm):
 			'password2'
 		)
 
+class EditProfileForm(forms.ModelForm):
 
+	class Meta:
+		model = Profile
+		fields = (
+			'first_name',
+			'last_name',
+			'email',
+			'repository',
+			'dag_directory_name'
+		)
 
-# class EditProfileForm(UserChangeForm):
+class ConfirmPasswordForm(forms.ModelForm):
+	confirm_password = forms.CharField(widget=forms.PasswordInput())
+	
+	# def __init__(self, user, *args, **kwargs):
+	# 	super(ConfirmPasswordForm, self).__init__(*args, **kwargs)
+	# 	self.user = user
 
-# 	class Meta:
-# 		model = User
-# 		fields = (
-# 			'first_name',
-# 			'last_name',
-# 		)
-# 		exclude = ('password')
+	# def clean_password(self):
+	# 	valid = self.user.check_password(self.cleaned_data['confirm_password'])
+	# 	if not valid:
+	# 		raise forms.ValidationError('Password Incorrect')
+	# 	return valid
+
+	class Meta:
+		model = User
+		fields = ('confirm_password',)
+
+	def clean(self):
+		cleaned_data = super(ConfirmPasswordForm, self).clean()
+		confirm_password = cleaned_data.get('confirm_password')
+		return check_password(Profile.confirm_password, self.instance.password)
+
+	# def check(self):
+	# 	#cleaned_data = super(ConfirmPasswordForm, self).clean()
+	# 	#confirm_password = cleaned_data.get('confirm_password')
+	# 	return check_password(Profile.confirm_password, self.instance.password)
+	# def clean(self):
+	# 	cleaned_data = super(ConfirmPasswordForm. self).clean()
+	# 	confirm_password = cleaned_data.get('confirm_password')
+	# 	if not check_password(confirm_password, self.instance.password):
+	# 		self.add_error('confirm_password', 'Password does not match.')
+
+	def save(self, commit=True):
+		user = super(ConfirmPasswordForm, self).save(commit)
+		user.last_login = timezone.now()
+		if commit:
+			user.save()
+			return user
+
+class DatabaseForm(forms.ModelForm):
+
+	class Meta:
+		model = Database
+		fields = (
+			'db_alias',
+			'db_type',
+			'db_connection_url'
+		)

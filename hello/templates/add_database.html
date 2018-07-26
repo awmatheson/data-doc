@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-  <h2>Change Profile</h2>
+  <h2>Add Database</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -18,11 +18,11 @@
       </p>
     {% endfor %}
     <br><br>
-    <p><b>Enter password to make changes:</b> </p>
+<!--     <p><b>Enter password to make changes:</b> </p>
     <p>{{ password_confirm_form }} <small style="color: red">{{x}}</small></p>
     {% for error in password_confirm_form.errors %}
       <p style="color: red">{{ error }}</p>
-    {% endfor %}
+    {% endfor %} -->
     <br>
     <button type="submit">Save</button>
     <br><br><br><br>

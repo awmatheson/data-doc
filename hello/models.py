@@ -13,6 +13,7 @@ class Profile(models.Model):
     repository = models.CharField(max_length=300, blank=True)
     dag_directory_name = models.CharField(max_length=50, blank=True)
     email_confirmed = models.BooleanField(default=False)
+    confirm_password = models.CharField(max_length=150, default='')
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -22,3 +23,32 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+class Database(models.Model):
+    user = models.ManyToManyField(User)
+    db_alias = models.CharField(max_length=255)
+    db_type = models.CharField(max_length=120)
+    db_connection_url = models.TextField()
+    schemas = models.TextField()
+
+    def __str__(self):
+        return self.db_alias
+
+
+class Schema(models.Model):
+    database = models.ForeignKey(Database, on_delete=models.CASCADE)
+    schema_name = models.CharField(max_length=255)
+
+
+class Table(models.Model):
+    schema = models.ForeignKey(Schema, on_delete=models.CASCADE)
+    table_name = models.CharField(max_length=255)
+    description = models.TextField()
+
+
+class Column(models.Model):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    column_name = models.CharField(max_length=255)
+    data_type = models.CharField(max_length=80)
+    description = models.TextField()

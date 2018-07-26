@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'gettingstarted.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dagqulc6qqg2oe',
-        'USER': 'auxfvhltnayjul',
-        'PASSWORD': '55e2b759797dc1d68417918d8dee1c9887a1fbf6a9b067ed5c7f23d31c6f7c26',
-        'HOST': 'ec2-54-204-18-53.compute-1.amazonaws.com',
+        'NAME': 'datadoc',
+        'USER': 'localuser',
+        'PASSWORD': 'datadocpassword',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
