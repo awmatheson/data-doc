@@ -107,15 +107,12 @@ def view_profile(request, username):
 # Changes to user profile
 @login_required
 def edit_profile(request, username):
-	x = ''
+
 	if request.method == 'POST':
-		success = ConfirmPasswordForm(request.POST)
+		confirm_password_form = ConfirmPasswordForm(request.POST, instance=request.user)
 		form = EditProfileForm(request.POST, instance=request.user)
 
-		if form.is_valid():
-			
-			#if success:
-
+		if form.is_valid() and confirm_password_form.is_valid():
 			user = form.save()
 			user.refresh_from_db()
 			user.profile.repository = form.cleaned_data.get('repository')
@@ -123,13 +120,11 @@ def edit_profile(request, username):
 			user.save()
 			return redirect('view_profile', {'username': user.username})
 
-			#else:
-			#	x = 'password does not match'
 	else:
 		current_profile = Profile.objects.get(pk=1)
 		form = EditProfileForm(instance=current_profile)
-		password_confirm_form = ConfirmPasswordForm()
-	args = {'x':x,'form':form, 'password_confirm_form':password_confirm_form}
+		confirm_password_form = ConfirmPasswordForm()
+	args = {'form':form, 'confirm_password_form':confirm_password_form}
 	return render(request, 'changeProfile.html', args)
 
 
@@ -177,10 +172,6 @@ def info(request):
 # Table of Contents/List of DAGS (results of Search Function)
 @login_required
 def TOC(request, repo_id):
-
-	# Retrieve URL from search form
-	# if request.method == 'GET':
-	# 	repo_id = request.GET.get('repo_id', None)
 
 	# Use variable repo_id to find DAGS in repo
 	DAG_list = get_repo()

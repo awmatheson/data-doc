@@ -6,17 +6,18 @@
 
   {% if DB_list %}
     {% for db in DB_list %}
-      <p>{{ forloop.counter }}.</p>
-      <p>{{db.db_alias}}</p>
-      <p>{{db.db_type}}</p>
-      <p>{{db.db_connection_url}}</p>
+      <p><b>{{ forloop.counter }}.</b></p>
+      <p><b>Database Alias:</b> {{db.db_alias}}</p>
+      <p><b>Database Type:</b> {{db.db_type}}</p>
+      <p><b>Database Connection URL:</b> {{db.db_connection_url}}</p>
       <p>---</p>
     {% endfor %}
   {% else %}
     <p>No databases have been added</p>
   {% endif %}
-
+  <br>
   <a type="button"  class="btn btn-lg btn-primary" href="{% url 'add_database' %}">Add a database</a>
+  <br><br><br>
 
 </div>
 {% endblock %}

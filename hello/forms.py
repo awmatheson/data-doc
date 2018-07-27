@@ -39,16 +39,6 @@ class EditProfileForm(forms.ModelForm):
 
 class ConfirmPasswordForm(forms.ModelForm):
 	confirm_password = forms.CharField(widget=forms.PasswordInput())
-	
-	# def __init__(self, user, *args, **kwargs):
-	# 	super(ConfirmPasswordForm, self).__init__(*args, **kwargs)
-	# 	self.user = user
-
-	# def clean_password(self):
-	# 	valid = self.user.check_password(self.cleaned_data['confirm_password'])
-	# 	if not valid:
-	# 		raise forms.ValidationError('Password Incorrect')
-	# 	return valid
 
 	class Meta:
 		model = User
@@ -57,24 +47,18 @@ class ConfirmPasswordForm(forms.ModelForm):
 	def clean(self):
 		cleaned_data = super(ConfirmPasswordForm, self).clean()
 		confirm_password = cleaned_data.get('confirm_password')
-		return check_password(Profile.confirm_password, self.instance.password)
-
-	# def check(self):
-	# 	#cleaned_data = super(ConfirmPasswordForm, self).clean()
-	# 	#confirm_password = cleaned_data.get('confirm_password')
-	# 	return check_password(Profile.confirm_password, self.instance.password)
-	# def clean(self):
-	# 	cleaned_data = super(ConfirmPasswordForm. self).clean()
-	# 	confirm_password = cleaned_data.get('confirm_password')
-	# 	if not check_password(confirm_password, self.instance.password):
-	# 		self.add_error('confirm_password', 'Password does not match.')
+		if not check_password(confirm_password, self.instance.password):
+			self.add_error('confirm_password', 'Password does not match.')
 
 	def save(self, commit=True):
 		user = super(ConfirmPasswordForm, self).save(commit)
-		user.last_login = timezone.now()
 		if commit:
 			user.save()
 			return user
+
+	def get_object(self):
+		return self.request.user
+
 
 class DatabaseForm(forms.ModelForm):
 
