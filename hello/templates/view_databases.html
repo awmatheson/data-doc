@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Databases</h2>
+
+  {% if DB_list %}
+    {% for db in DB_list %}
+      <p>{{ forloop.counter }}.</p>
+      <p>{{db.db_alias}}</p>
+      <p>{{db.db_type}}</p>
+      <p>{{db.db_connection_url}}</p>
+      <p>---</p>
+    {% endfor %}
+  {% else %}
+    <p>No databases have been added</p>
+  {% endif %}
+
+  <a type="button"  class="btn btn-lg btn-primary" href="{% url 'add_database' %}">Add a database</a>
+
+</div>
+{% endblock %}

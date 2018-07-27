@@ -142,7 +142,7 @@ def add_database(request):
 		if form.is_valid():
 			database = form.save()
 			database.save()
-			return redirect('index')
+			return redirect('view_databases')
 
 	else:
 		#current = Database.objects.get(pk=1)
@@ -152,12 +152,19 @@ def add_database(request):
 	args = {'form':form, }
 	return render(request, 'add_database.html', args)
 
+@login_required
+def view_databases(request):
 
+	DB_list = Database.objects.all()
+
+	args = {'DB_list':DB_list}
+	return render(request, 'view_databases.html', args)
 
 
 # Index/Home Page (shows Search Function)
 @login_required
 def index(request):
+
 	return render(request, 'index.html')
 
 

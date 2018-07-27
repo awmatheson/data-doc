@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^user/(?P<username>.*)$', hello.views.view_profile, name="view_profile"),
     url(r'^password/$', hello.views.change_password, name='change_password'),
     url(r'^add_database/$', hello.views.add_database, name='add_database'),
+    url(r'^databases/$', hello.views.view_databases, name='view_databases'),
     url(r'^$', hello.views.index, name='index'),
     url(r'^info', hello.views.info, name='info'),
     url(r'^TOC/(?P<repo_id>.*)/DAG/(?P<dag_name>.*)/task/(?P<job_name>.*)/table/(?P<table_name>.*)$', hello.views.table, name="table"),

@@ -18,6 +18,9 @@
         <a href="/info"><span class="glyphicon glyphicon-book"></span> How it works</a>
       </li>
       <li>
+        <a href="{% url 'view_databases' %}"><span class="glyphicon glyphicon-stop"></span> Databases</a>
+      </li>
+      <li>
         <a href="{% url 'TOC' user.profile.repository %}"><span class="glyphicon glyphicon-search"></span> Table of Contents</a>
       </li>
       {% if user.username %}
