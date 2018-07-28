@@ -13,7 +13,7 @@ class Profile(models.Model):
     repository = models.CharField(max_length=300, blank=True)
     dag_directory_name = models.CharField(max_length=50, blank=True)
     email_confirmed = models.BooleanField(default=False)
-    confirm_password = models.CharField(max_length=150, default='')
+    confirm_password = models.CharField(max_length=150, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
