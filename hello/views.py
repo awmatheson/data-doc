@@ -118,7 +118,7 @@ def edit_profile(request, username):
 			user.profile.repository = form.cleaned_data.get('repository')
 			user.profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
 			user.save()
-			return redirect('view_profile', {'username': user.username})
+			return redirect('view_profile', user.username)
 
 	else:
 		current_profile = Profile.objects.get(pk=1)
@@ -128,6 +128,7 @@ def edit_profile(request, username):
 	return render(request, 'changeProfile.html', args)
 
 
+# Shows form to add a database connection
 @login_required
 def add_database(request):
 
@@ -137,7 +138,8 @@ def add_database(request):
 		if form.is_valid():
 			database = form.save()
 			database.save()
-			return redirect('view_databases')
+			current_user = Profile.objects.get(pk=1)
+			return redirect('TOC', current_user.repository)
 
 	else:
 		#current = Database.objects.get(pk=1)
@@ -148,12 +150,31 @@ def add_database(request):
 	return render(request, 'add_database.html', args)
 
 @login_required
-def view_databases(request):
+def delete_database(request, db_alias, id):
 
-	DB_list = Database.objects.all()
+	db = Database.objects.get(pk=id)
 
-	args = {'DB_list':DB_list}
-	return render(request, 'view_databases.html', args)
+	if request.method == 'POST':
+		confirm_password_form = ConfirmPasswordForm(request.POST, instance=request.user)
+
+		if confirm_password_form.is_valid():
+			Database.objects.get(pk=id).delete()
+			current_user = Profile.objects.get(pk=1)
+			return redirect('TOC', current_user.repository)
+
+	else:
+		confirm_password_form = ConfirmPasswordForm()
+
+	args = {'db':db, 'confirm_password_form':confirm_password_form}
+	return render(request, 'delete_database.html', args)
+
+# @login_required
+# def view_databases(request):
+
+# 	DB_list = Database.objects.all()
+
+# 	args = {'DB_list':DB_list}
+# 	return render(request, 'view_databases.html', args)
 
 
 # Index/Home Page (shows Search Function)
@@ -175,7 +196,9 @@ def TOC(request, repo_id):
 
 	# Use variable repo_id to find DAGS in repo
 	DAG_list = get_repo()
-	args = {'repo_id': repo_id, 'DAG_list': DAG_list}
+	DB_list = Database.objects.all()
+
+	args = {'DB_list':DB_list, 'repo_id': repo_id, 'DAG_list': DAG_list}
 	return render(request, 'TOC.html', args)
 
 
