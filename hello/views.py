@@ -186,7 +186,6 @@ def index(request):
 
 # Information/"How it works" page
 def info(request):
-
 	return render(request, 'info.html')
 
 
