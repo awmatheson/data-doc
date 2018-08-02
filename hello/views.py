@@ -119,7 +119,6 @@ def edit_profile(request, username):
 
 		if form.is_valid() and confirm_password_form.is_valid():
 			profile = form.save(commit=False)
-			profile.user = request.user
 			current_user = request.user
 			current_user.first_name = profile.first_name
 			current_user.last_name = profile.last_name
