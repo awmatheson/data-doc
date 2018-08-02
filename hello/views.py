@@ -241,7 +241,6 @@ def task(request, repo_id, dag_name, job_name):
 # One page per table, shows columns and data types
 @login_required
 def table(request, repo_id, dag_name, job_name, table_name):
-
 	TBL_connection_list = get_tables()
 	args = {'repo_id': repo_id,
 			'dag_name': dag_name,
