@@ -119,6 +119,7 @@ def edit_profile(request, username):
 
 		if form.is_valid() and confirm_password_form.is_valid():
 			profile = form.save(commit=False)
+			profile.user = request.user
 			current_user = request.user
 			current_user.first_name = profile.first_name
 			current_user.last_name = profile.last_name
@@ -174,14 +175,6 @@ def delete_database(request, db_alias, id):
 
 	args = {'db':db, 'confirm_password_form':confirm_password_form}
 	return render(request, 'delete_database.html', args)
-
-# @login_required
-# def view_databases(request):
-
-# 	DB_list = Database.objects.all()
-
-# 	args = {'DB_list':DB_list}
-# 	return render(request, 'view_databases.html', args)
 
 
 # Index/Home Page (shows Search Function)
