@@ -130,7 +130,6 @@ def edit_profile(request, username):
 			return redirect('view_profile', request.user.username)
 
 	else:
-		#current_user = request.user.id
 		current_profile = request.user.profile
 		form = EditProfileForm(instance=current_profile)
 		confirm_password_form = ConfirmPasswordForm()
@@ -186,7 +185,6 @@ def index(request):
 
 # Information/"How it works" page
 def info(request):
-
 	return render(request, 'info.html')
 
 
