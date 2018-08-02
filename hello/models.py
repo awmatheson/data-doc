@@ -26,7 +26,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Database(models.Model):
-    user = models.ManyToManyField(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     db_alias = models.CharField(max_length=255)
     db_type = models.CharField(max_length=120)
     db_connection_url = models.TextField()
