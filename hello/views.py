@@ -71,11 +71,6 @@ def activate(request, uidb64, token, repository, dag_name):
 		user.save()
 		user.profile.save()
 		login(request, user)
-
-		user.profile.first_name = user.first_name
-		user.profile.last_name = user.last_name
-		user.profile.email = user.email
-		user.profile.save()
 		return redirect('index')
 	else:
 		return render(request, 'account_activation_invalid.html')
@@ -115,23 +110,18 @@ def edit_profile(request, username):
 
 	if request.method == 'POST':
 		confirm_password_form = ConfirmPasswordForm(request.POST, instance=request.user)
-		form = EditProfileForm(request.POST, instance=request.user.profile)
+		form = EditProfileForm(request.POST, instance=request.user)
 
 		if form.is_valid() and confirm_password_form.is_valid():
-			profile = form.save(commit=False)
-			current_user = request.user
-			current_user.first_name = profile.first_name
-			current_user.last_name = profile.last_name
-			current_user.email = profile.email
-			current_user.save()
-			profile.user = request.user
-			profile.save()
-
-			return redirect('view_profile', request.user.username)
+			user = form.save()
+			user.refresh_from_db()
+			user.profile.repository = form.cleaned_data.get('repository')
+			user.profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
+			user.save()
+			return redirect('view_profile', user.username)
 
 	else:
-		#current_user = request.user.id
-		current_profile = request.user.profile
+		current_profile = Profile.objects.get(pk=1)
 		form = EditProfileForm(instance=current_profile)
 		confirm_password_form = ConfirmPasswordForm()
 	args = {'form':form, 'confirm_password_form':confirm_password_form}
@@ -146,14 +136,15 @@ def add_database(request):
 		a = Database()
 		form = DatabaseForm(request.POST, instance=a)
 		if form.is_valid():
-			database = form.save(commit=False)
-			database.user = request.user
+			database = form.save()
 			database.save()
-			current_repository = request.user.profile.repository
-			return redirect('TOC', current_repository)
+			current_user = Profile.objects.get(pk=1)
+			return redirect('TOC', current_user.repository)
 
 	else:
+		#current = Database.objects.get(pk=1)
 		form = DatabaseForm()
+		#password_confirm_form = ConfirmPasswordForm()
 
 	args = {'form':form, }
 	return render(request, 'add_database.html', args)
@@ -168,8 +159,8 @@ def delete_database(request, db_alias, id):
 
 		if confirm_password_form.is_valid():
 			Database.objects.get(pk=id).delete()
-			current_repository = request.user.profile.repository
-			return redirect('TOC', current_repository)
+			current_user = Profile.objects.get(pk=1)
+			return redirect('TOC', current_user.repository)
 
 	else:
 		confirm_password_form = ConfirmPasswordForm()
@@ -189,6 +180,7 @@ def delete_database(request, db_alias, id):
 # Index/Home Page (shows Search Function)
 @login_required
 def index(request):
+
 	return render(request, 'index.html')
 
 
@@ -204,8 +196,7 @@ def TOC(request, repo_id):
 
 	# Use variable repo_id to find DAGS in repo
 	DAG_list = get_repo()
-	current_user = request.user
-	DB_list = Database.objects.filter(user = current_user)
+	DB_list = Database.objects.all()
 
 	args = {'DB_list':DB_list, 'repo_id': repo_id, 'DAG_list': DAG_list}
 	return render(request, 'TOC.html', args)
