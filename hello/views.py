@@ -177,14 +177,6 @@ def delete_database(request, db_alias, id):
 	args = {'db':db, 'confirm_password_form':confirm_password_form}
 	return render(request, 'delete_database.html', args)
 
-# @login_required
-# def view_databases(request):
-
-# 	DB_list = Database.objects.all()
-
-# 	args = {'DB_list':DB_list}
-# 	return render(request, 'view_databases.html', args)
-
 
 # Index/Home Page (shows Search Function)
 @login_required
