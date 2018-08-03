@@ -180,7 +180,6 @@ def delete_database(request, db_alias, id):
 # Index/Home Page (shows Search Function)
 @login_required
 def index(request):
-	test = 'test'
 	return render(request, 'index.html')
 
 
