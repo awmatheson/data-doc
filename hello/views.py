@@ -125,6 +125,8 @@ def edit_profile(request, username):
 			current_user.email = profile.email
 			current_user.save()
 			profile.user = request.user
+			profile.repository = form.cleaned_data.get('repository')
+			profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
 			profile.save()
 			return redirect('view_profile', request.user.username)
 
