@@ -24,7 +24,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-class Databases(models.Model):
+class Database(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     db_alias = models.CharField(max_length=255)
     db_type = models.CharField(max_length=120)
@@ -35,7 +35,7 @@ class Databases(models.Model):
         return self.db_alias
 
 class Schema(models.Model):
-    database = models.ForeignKey(Databases, on_delete=models.CASCADE)
+    database = models.ForeignKey(Database, on_delete=models.CASCADE)
     schema_name = models.CharField(max_length=255)
 
 
