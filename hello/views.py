@@ -115,7 +115,7 @@ def edit_profile(request, username):
 
 	if request.method == 'POST':
 		confirm_password_form = ConfirmPasswordForm(request.POST, instance=request.user)
-		form = EditProfileForm(request.POST, instance=request.user.profile)
+		form = EditProfileForm(request.POST, instance=request.user)
 
 		if form.is_valid() and confirm_password_form.is_valid():
 			profile = form.save(commit=False)
@@ -128,7 +128,6 @@ def edit_profile(request, username):
 			profile.repository = form.cleaned_data.get('repository')
 			profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
 			profile.save()
-
 			return redirect('view_profile', request.user.username)
 
 	else:
@@ -182,6 +181,7 @@ def edit_profile(request, username):
 # Index/Home Page (shows Search Function)
 @login_required
 def index(request):
+
 	return render(request, 'index.html')
 
 
@@ -196,6 +196,7 @@ def TOC(request, repo_id):
 
 	# Use variable repo_id to find DAGS in repo
 	DAG_list = get_repo()
+
 	#current_user = request.user
 	#DB_list = Database.objects.filter(user = current_user)
 	DB_list = 'test'
@@ -233,7 +234,6 @@ def task(request, repo_id, dag_name, job_name):
 # One page per table, shows columns and data types
 @login_required
 def table(request, repo_id, dag_name, job_name, table_name):
-
 	TBL_connection_list = get_tables()
 	args = {'repo_id': repo_id,
 			'dag_name': dag_name,

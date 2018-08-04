@@ -7,20 +7,20 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('hello', '0019_profile_confirm_password'),
-    ]
+	dependencies = [
+		migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+		('hello', '0019_profile_confirm_password'),
+	]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='database',
-            name='user',
-        ),
-        migrations.AddField(
-            model_name='database',
-            name='user',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
-            preserve_default=False,
-        ),
-    ]
+	operations = [
+		migrations.RemoveField(
+			model_name='database',
+			name='user',
+		),
+		migrations.AddField(
+			model_name='database',
+			name='user',
+			field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+			preserve_default=False,
+		),
+	]
