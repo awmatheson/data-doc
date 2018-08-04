@@ -139,43 +139,43 @@ def edit_profile(request, username):
 
 
 # Shows form to add a database connection
-# @login_required
-# def add_database(request):
+@login_required
+def add_database(request):
 
-# 	if request.method == 'POST':
-# 		a = Database()
-# 		form = DatabaseForm(request.POST, instance=a)
-# 		if form.is_valid():
-# 			database = form.save(commit=False)
-# 			database.user = request.user
-# 			database.save()
-# 			current_repository = request.user.profile.repository
-# 			return redirect('TOC', current_repository)
+	if request.method == 'POST':
+		a = Database()
+		form = DatabaseForm(request.POST, instance=a)
+		if form.is_valid():
+			database = form.save(commit=False)
+			database.user = request.user
+			database.save()
+			current_repository = request.user.profile.repository
+			return redirect('TOC', current_repository)
 
-# 	else:
-# 		form = DatabaseForm()
+	else:
+		form = DatabaseForm()
 
-# 	args = {'form':form, }
-# 	return render(request, 'add_database.html', args)
+	args = {'form':form, }
+	return render(request, 'add_database.html', args)
 
-# @login_required
-# def delete_database(request, db_alias, id):
+@login_required
+def delete_database(request, db_alias, id):
 
-# 	db = Database.objects.get(pk=id)
+	db = Database.objects.get(pk=id)
 
-# 	if request.method == 'POST':
-# 		confirm_password_form = ConfirmPasswordForm(request.POST, instance=request.user)
+	if request.method == 'POST':
+		confirm_password_form = ConfirmPasswordForm(request.POST, instance=request.user)
 
-# 		if confirm_password_form.is_valid():
-# 			Database.objects.get(pk=id).delete()
-# 			current_repository = request.user.profile.repository
-# 			return redirect('TOC', current_repository)
+		if confirm_password_form.is_valid():
+			Database.objects.get(pk=id).delete()
+			current_repository = request.user.profile.repository
+			return redirect('TOC', current_repository)
 
-# 	else:
-# 		confirm_password_form = ConfirmPasswordForm()
+	else:
+		confirm_password_form = ConfirmPasswordForm()
 
-# 	args = {'db':db, 'confirm_password_form':confirm_password_form}
-# 	return render(request, 'delete_database.html', args)
+	args = {'db':db, 'confirm_password_form':confirm_password_form}
+	return render(request, 'delete_database.html', args)
 
 
 # Index/Home Page (shows Search Function)
