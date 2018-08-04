@@ -119,14 +119,15 @@ def edit_profile(request, username):
 
 		if form.is_valid() and confirm_password_form.is_valid():
 			profile = form.save(commit=False)
-			current_user = request.user
-			current_user.first_name = profile.first_name
-			current_user.last_name = profile.last_name
-			current_user.email = profile.email
-			current_user.save()
+			
+			#user.first_name = profile.first_name
+			#current_user.first_name = profile.first_name
+			#current_user.last_name = profile.last_name
+			#current_user.email = profile.email
+			#current_user.save()
 			profile.user = request.user
-			profile.repository = form.cleaned_data.get('repository')
-			profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
+			#profile.repository = form.cleaned_data.get('repository')
+			#profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
 			profile.save()
 			return redirect('view_profile', request.user.username)
 
@@ -197,9 +198,9 @@ def TOC(request, repo_id):
 	# Use variable repo_id to find DAGS in repo
 	DAG_list = get_repo()
 
-	#current_user = request.user
-	#DB_list = Database.objects.filter(user = current_user)
-	DB_list = 'test'
+	current_user = request.user
+	DB_list = Database.objects.filter(user = current_user)
+
 	args = {'DB_list':DB_list, 'repo_id': repo_id, 'DAG_list': DAG_list}
 	return render(request, 'TOC.html', args)
 
