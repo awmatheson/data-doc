@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 
-from .models import Profile, Database
+from .models import Profile
+#, Database
 
 class SignUpForm(UserCreationForm):
 	first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
@@ -60,12 +61,12 @@ class ConfirmPasswordForm(forms.ModelForm):
 		return self.request.user
 
 
-class DatabaseForm(forms.ModelForm):
+# class DatabaseForm(forms.ModelForm):
 
-	class Meta:
-		model = Database
-		fields = (
-			'db_alias',
-			'db_type',
-			'db_connection_url'
-		)
+# 	class Meta:
+# 		model = Database
+# 		fields = (
+# 			'db_alias',
+# 			'db_type',
+# 			'db_connection_url'
+# 		)
