@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
 
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'hello/form.css' %}">
+
+<div class="form">
 <div class="container">
   <h2>Change Profile</h2>
   <form method="post">
@@ -21,9 +27,10 @@
     <p><b>Enter password to make changes:</b> </p>
     <p>{{ confirm_password_form }}</p>
     <br>
+    <label></label>
     <button type="submit">Save</button>
     <br><br><br><br>
   </form>
-
+</div>
 </div>
 {% endblock %}

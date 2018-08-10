@@ -1,60 +1,12 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load static %}
 
 {% block content %}
 
-<style type="text/css">
-    .TBL-H {
-        background: #2B3856;
-        color: white;
-        text-align: left;
-        padding-top: 10px;
-        padding-bottom: 10px
-    }
-    .TBL-H h4 {
-        color: #d9ccee;
-        max-width: 75%;
-        margin: 1em auto 2em
-    }
-    .TBL-H .btn-primary {
-        background: #161314;
-        border-color: #161314;
-        float: right;
-    }
-    .TBL-H .btn-primary:hover {
-        background: #524F50
-    }
-    .TBL-H a:link {
-        color: white;
-    }
-    .TBL-H a:visited {
-        color: white;
-    }
-    .TBL-H a:hover {
-        color: #161314;
-    }
-    .TBL {
-        background: white;
-        color: #161314;
-        padding-bottom: 80px
-    }
-    .TBL p {
-        color: #161314;
-        max-width: 90%;
-        margin: 1em auto 2em
-    }
-    .TBL a:link {
-        color: #161314;
-    }
-    .TBL a:visited {
-        color: #161314;
-    }
-    .TBL a:hover {
-        color: #2B3856;
-    }
- </style>
+<link rel="stylesheet" type="text/css" href="{% static 'hello/base_plus.css' %}">
 
-<div class="TBL-H">
+<div class="page-header">
   <div class="container">
   	<br>
   	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
@@ -64,7 +16,8 @@
   </div>
 </div>
 
-<div class="TBL">
+<div class="content">
+    
     <!-- List/Descriptions of columns in table -->
     <h4 align="center"><br>Table "{{ table_name }}" has the following columns:</h4>
     <div class="container">

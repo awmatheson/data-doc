@@ -1,69 +1,22 @@
 {% extends "base.html"%}
 {% load staticfiles %}
+{% load static %}
 
 {% block content %}
 
-<style type="text/css">
-    .TOC-H {
-        background: #2B3856;
-        color: white;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px
-    }
-    .TOC-H h4 {
-        color: #d9ccee;
-        max-width: 75%;
-        margin: 1em auto 2em
-    }
-    .TOC-H .btn-primary {
-        background: #161314;
-        border-color: #161314;
-    }
-    .TOC-H .btn-primary:hover {
-        background: #524F50
-    }
-    .TOC-H a:link {
-        color: white;
-    }
-    .TOC-H a:visited {
-        color: white;
-    }
-    .TOC-H a:hover {
-        color: #161314;
-    }
-    .TOC {
-        background: white;
-        color: #161314;
-        padding-bottom: 80px
-    }
-    .TOC p {
-        color: #161314;
-        max-width: 90%;
-        margin: 1em auto 2em
-    }
-    .TOC a:link {
-        color: #161314;
-    }
-    .TOC a:visited {
-        color: #161314;
-    }
-    .TOC a:hover {
-        color: #2B3856;
-    }
- </style>
+<link rel="stylesheet" type="text/css" href="{% static 'hello/base_plus.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'hello/display.css' %}">
 
-<div class="TOC-H">
+<div class="page-header">
     <div class="container">
         <h2 align="center">Table of Contents</h2>
 
         <!-- Link to Github Repository -->
         <h4 align="center"><br>Github Repository URL: <a href="http://{{ repo_id }}" target="_blank">{{ repo_id }}</a></h4>
-        <!-- <a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a> -->
     </div>
 </div>
 
-<div class="TOC" align="center">
+<div class="content" align="center">
     
     <!-- Example List of DAGS -->
     <h4><br>The Github Repository contains the following DAGs:</h4>
@@ -74,15 +27,33 @@
     {% endfor %}
 </div>
 
+
+<hr>
+
+
+<div class="Display">
 <div class="container">
   <h2>Databases</h2>
 
   {% if DB_list %}
     {% for db in DB_list %}
-      <p><b>{{ forloop.counter }}.</b></p>
-      <p><b>Database Alias:</b> {{db.db_alias}}</p>
-      <p><b>Database Type:</b> {{db.db_type}}</p>
-      <p><b>Database Connection URL:</b> {{db.db_connection_url}}</p>
+    <p>
+        <div class="row">
+            <div class="column left"><b>{{ forloop.counter }}.</b></div>
+        </div>
+        <div class="row">
+            <div class="column left"><b>Database Alias:</b></div>
+            <div class="column right">{{db.db_alias}}</div>
+        </div>
+        <div class="row">
+            <div class="column left"><b>Database Type:</b></div>
+            <div class="column right">{{db.db_type}}</div>
+        </div>
+        <div class="row">
+            <div class="column left"><b>Database Connection URL:</b></div>
+            <div class="column right">{{db.db_connection_url}}</div>
+        </div>
+    </p>
       <a type="button"  class="btn btn-xs btn-primary" href="{% url 'delete_database' db.db_alias db.pk %}">Delete</a>
       <p>---</p>
     {% endfor %}
@@ -93,6 +64,7 @@
   <a type="button"  class="btn btn-lg btn-primary" href="{% url 'add_database' %}">Add a database</a>
   <br><br><br>
 
+</div>
 </div>
 
 {% endblock %}

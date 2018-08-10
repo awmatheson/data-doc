@@ -1,0 +1,40 @@
+.Display {
+    background: white;
+    padding-top:20px;
+    padding-bottom: 20px
+    padding-left:80px;
+}
+.Display h2 {
+	color: #161314;
+}
+.Display h4 {
+	color: #161314;
+}
+.Display p {
+    color: #161314;
+    max-width: 90%;
+}
+.Display .btn-primary {
+    background: #161314;
+    border-color: #161314;
+}
+.Display .btn-primary:hover {
+    background: #524F50
+}
+.row {
+	padding-bottom: 10px;
+}
+.column {
+	float: left;
+}
+.left {
+	width: 20%;
+}
+.right {
+	width: 80%;
+}
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}

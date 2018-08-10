@@ -1,15 +1,39 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
 
 {% block content %}
-<div class="container">
-  <h2>User Profile</h2>
-  <br>
-  <h4><b>Username:</b> {{user.username}}</h4>
-  <h4><b>Name:</b> {{user.profile.first_name}} {{user.profile.last_name}}</h4>
-  <h4><b>Email:</b> {{user.profile.email}}</h4>
-  <h4><b>Github Repository:</b> {{user.profile.repository}}</h4>
-  <h4><b>DAG Directory Name:</b> {{user.profile.dag_directory_name}}</h4>
-  <br>
-  <a type="button"  class="btn btn-med btn-primary" href="{% url 'edit_profile' user.username %}">Change User Profile</a>
+
+<link rel="stylesheet" type="text/css" href="{% static 'hello/display.css' %}">
+
+<div class=Display>
+  <div class="container">
+	<h2>User Profile</h2>
+	<br>
+	<h4>
+	<div class="row">
+		<div class="column left"><b>Username:</b></div>
+		<div class="column right">{{user.username}}</div>
+	</div>
+	<div class="row">
+		<div class="column left"><b>Name:</b></div>
+		<div class="column right">{{user.profile.first_name}} {{user.profile.last_name}}</div>
+	</div>
+	<div class="row">
+		<div class="column left"><b>Email:</b></div>
+		<div class="column right">{{user.profile.email}}</div>
+	</div>
+	<div class="row">
+		<div class="column left"><b>Github Repository:</b></div>
+		<div class="column right">{{user.profile.repository}}</div>
+	</div>
+	<div class="row">
+		<div class="column left"><b>DAG Directory Name:</b></div>
+		<div class="column right">{{user.profile.dag_directory_name}}</div>
+	</div>
+	</h4>
+  	<br>
+  	<a type="button"  class="btn btn-med btn-primary" href="{% url 'edit_profile' user.username %}">Change User Profile</a>
+  </div>
 </div>
 {% endblock %}

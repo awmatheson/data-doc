@@ -1,0 +1,51 @@
+.page-header {
+    background: #2B3856;
+    color: white;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+.page-header h4 {
+    color: #d9ccee;
+    max-width: 75%;
+    margin: 1em auto 2em
+}
+.page-header .btn-primary {
+    background: #161314;
+    border-color: #161314;
+    float: right;
+}
+.page-header .btn-primary:hover {
+    background: #524F50
+}
+.page-header a:link {
+    color: white;
+}
+.page-header a:visited {
+    color: white;
+}
+.page-header a:hover {
+    color: #161314;
+}
+.content {
+    background: white;
+    color: #161314;
+    padding-bottom: 40px
+}
+.content p {
+    color: #161314;
+    max-width: 90%;
+    margin: 1em auto 2em
+}
+.content a:link {
+    color: #161314;
+}
+.content a:visited {
+    color: #161314;
+}
+.content a:hover {
+    color: #2B3856;
+}
+hr {
+    width: 80%;
+}

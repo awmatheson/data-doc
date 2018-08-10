@@ -1,21 +1,38 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
 
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'hello/display.css' %}">
+
+<div class=Display">
 <div class="container">
   <h2>Database to Delete</h2>
+  <br>
   <form method="post">
     {% csrf_token %}
-    <p><b>Database Alias:</b> {{db.db_alias}}</p>
-    <p><b>Database Type:</b> {{db.db_type}}</p>
-    <p><b>Database Connection URL:</b> {{db.db_connection_url}}</p>
+    <div class="row">
+      <div class="column left"><b>Database Alias:</b></div>
+      <div class="column right">{{db.db_alias}}</div>
+    </div>
+    <div class="row">
+      <div class="column left"><b>Database Type:</b></div>
+      <div class="column right">{{db.db_type}}</div>
+    </div>
+    <div class="row">
+      <div class="column left"><b>Database Connection URL:</b></div>
+      <div class="column right">{{db.db_connection_url}}</div>
+    </div>
     <p>---</p>
     <br><br>
-    <p><b>Enter password to make changes:</b> </p>
+    <p><b>Enter password to make changes: </b></p>
     <p>{{ confirm_password_form }}</p>
     <br>
     <button type="submit">Delete</button>
   </form>
   <br><br><br>
 
+</div>
 </div>
 {% endblock %}

@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load static %}
 
 {% block content %}
 
-<div class="DAG-H">
+<link rel="stylesheet" type="text/css" href="{% static 'hello/base_plus.css' %}">
+
+<div class="page-header">
   <div class="container">
   	<br>
   	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
     <h2>DAG:  "{{ dag_name }}"</h2>
     <h4 align="center"><br>From Github Repo: <a href="http://{{ repo_id }}" target="_blank">{{ repo_id }}</a></h4>
-
   </div>
 </div>
 
-<div class="DAG" align="center">
+<div class="content" align="center">
 
     <!-- List of SQL "Jobs" -->
     <h4><br>DAG "{{ dag_name }}" has the following tasks:</h4>

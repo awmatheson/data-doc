@@ -1,60 +1,12 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load static %}
 
 {% block content %}
 
-<style type="text/css">
-    .TSK-H {
-        background: #2B3856;
-        color: white;
-        text-align: left;
-        padding-top: 10px;
-        padding-bottom: 10px
-    }
-    .TSK-H h4 {
-        color: #d9ccee;
-        max-width: 75%;
-        margin: 1em auto 2em
-    }
-    .TSK-H .btn-primary {
-        background: #161314;
-        border-color: #161314;
-        float: right;
-    }
-    .TSK-H .btn-primary:hover {
-        background: #524F50
-    }
-    .TSK-H a:link {
-        color: white;
-    }
-    .TSK-H a:visited {
-        color: white;
-    }
-    .TSK-H a:hover {
-        color: #161314;
-    }
-    .TSK {
-        background: white;
-        color: #161314;
-        padding-bottom: 80px
-    }
-    .TSK p {
-        color: #161314;
-        max-width: 90%;
-        margin: 1em auto 2em
-    }
-    .TSK a:link {
-        color: #161314;
-    }
-    .TSK a:visited {
-        color: #161314;
-    }
-    .TSK a:hover {
-        color: #2B3856;
-    }
- </style>
+<link rel="stylesheet" type="text/css" href="{% static 'hello/base_plus.css' %}">
 
-<div class="TSK-H">
+<div class="page-header">
   <div class="container">
   	<br>
   	<a type="button"  class="btn btn-lg btn-primary" href="/">New Search</a>
@@ -64,7 +16,7 @@
   </div>
 </div>
 
-<div class="TSK" align="center">
+<div class="content" align="center">
 
     <!-- Link to Task Script -->
     <h4><br>Task "{{ job_name }}" runs the following script:</h4>

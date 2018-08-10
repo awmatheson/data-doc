@@ -1,0 +1,27 @@
+.form {
+    background: #e9ebee;
+    padding-top:20px;
+    padding-bottom: 20px
+    padding-left:80px;
+}
+.form h2 {
+	color: #161314;
+}
+.form p {
+    color: #161314;
+    max-width: 90%;
+    margin: 1em auto 2em
+}
+.form label {
+	display: inline-block;
+	float: left;
+	clear: left;
+	width: 150px;
+	text-align: right;
+	padding-right: 5px;
+}
+.form button {
+	background: #161314;
+	border-color: #161314;
+	color: white;
+}
