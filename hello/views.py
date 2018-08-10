@@ -118,17 +118,22 @@ def edit_profile(request, username):
 		form = EditProfileForm(request.POST, instance=request.user)
 
 		if form.is_valid() and confirm_password_form.is_valid():
+			# Save Profile Form for current user
 			profile = form.save(commit=False)
-			
-			#user.first_name = profile.first_name
-			#current_user.first_name = profile.first_name
-			#current_user.last_name = profile.last_name
-			#current_user.email = profile.email
-			#current_user.save()
 			profile.user = request.user
-			#profile.repository = form.cleaned_data.get('repository')
-			#profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
+			current = request.user
+			current.profile.repository = form.cleaned_data.get('repository')
+			current.profile.dag_directory_name = form.cleaned_data.get('dag_directory_name')
 			profile.save()
+
+			# Add user data to Profile (only saved as User in previous step)
+			current_profile = request.user.profile
+			current_user = request.user
+			current_profile.first_name = current_user.first_name
+			current_profile.last_name = current_user.last_name
+			current_profile.email = current_user.email
+			current_profile.save()
+
 			return redirect('view_profile', request.user.username)
 
 	else:
@@ -159,6 +164,7 @@ def add_database(request):
 	args = {'form':form, }
 	return render(request, 'add_database.html', args)
 
+# Delete a database object
 @login_required
 def delete_database(request, db_alias, id):
 
@@ -191,7 +197,9 @@ def info(request):
 	return render(request, 'info.html')
 
 
-# Table of Contents/List of DAGS (results of Search Function)
+# Table of Contents:
+# 	List of DAGS
+#	Database Connections
 @login_required
 def TOC(request, repo_id):
 

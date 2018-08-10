@@ -59,7 +59,6 @@ class ConfirmPasswordForm(forms.ModelForm):
 	def get_object(self):
 		return self.request.user
 
-
 class DatabaseForm(forms.ModelForm):
 
 	class Meta:
