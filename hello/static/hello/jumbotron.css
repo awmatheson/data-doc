@@ -18,16 +18,12 @@
 .navbar+.jumbotron {
     margin-top: -20px
 }
-.jumbotron .lang-logo {
-    display: block;
-    background: #b01302;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    border: 2px solid white
+.jumbotron a:link {
+    color: #d9ccee;
 }
-.jumbotron .lang-logo img {
-    max-width: 100%
+.jumbotron a:visited {
+    color: #d9ccee;
+}
+.jumbotron a:hover {
+    color: white;
 }
